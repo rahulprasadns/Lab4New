@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fish Weight Predicter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+</head>
+<script>
+
+    function myFunction() {
+        var text1 = $('#text1').val();
+        var text2 = $('#text2').val();
+        var text3 = $('#text3').val();
+        var text4 = $('#text4').val();
+        var text5 = $('#text5').val();
+        $.ajax({
+            url: "/Lab4",
+            type: "POST",
+            data: {
+                Length1: text1,
+                Length2: text2,
+                Length3: text3,
+                Height: text4,
+                Width: text5,
+            }
+        }).done(function (response) {
+            var html = "<br><br><br><p> <b> Final predicted Weight : <b><p>";
+            response = response.result;
+            $.each(response, function (key, val) {
+                console.log(val);
+                html += "<p>" + val + "<p>"
+            });
+            html += "<br>";
+            $(".show-data").append(html);
+        });
+    };  </script>
+
+<body>
+    <p>Taking input<br>
+        <br>
+        Leangth1
+        <input type="text" id="text1" name="text1"><br><br>
+        Length2
+        <input type="text" id="text2" name="text2"><br><br>
+        Length3
+        <input type="text" id="text3" name="text3"><br><br>
+        Height
+        <input type="text" id="text4" name="text4"><br><br>
+        Width
+        <input type="text" id="text5" name="text5"><br><br>
+        <button id="clicked" onclick="myFunction()">Get Predicted Weight</button>
+    </p>
+    <div class="show-data"> </div>
+</body>
+
+</html>
